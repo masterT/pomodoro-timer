@@ -31177,7 +31177,6 @@
 	    var numberWorkPeriodDone = _state2.numberWorkPeriodDone;
 	    var remainingTime = _state2.remainingTime;
 	
-	    console.log('this.props', this.props);
 	    var action = this.getCurrentAction();
 	
 	    return _react2.default.createElement(

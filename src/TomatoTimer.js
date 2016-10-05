@@ -157,7 +157,6 @@ const TomatoTimer = React.createClass({
   render () {
     let { audio } = this.props
     let { remainingWorkPeriod, numberWorkPeriodDone, remainingTime } = this.state
-    console.log('this.props', this.props);
     let action = this.getCurrentAction()
 
     return (
