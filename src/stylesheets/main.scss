@@ -1,0 +1,126 @@
+/*
+* Variables
+*/
+$color-background: tomato;
+$color-text: #4a4a4a;
+
+
+/*
+* Global
+*/
+body {
+  background-color: $color-background;
+  color: $color-text;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: center;
+  width: 100%;
+}
+
+* {
+  text-transform: uppercase;
+}
+
+footer {
+  color: #634d49;
+  font-size: 0.85em;
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+  text-align: center;
+  display: inline;
+  width: 100%;
+  left: 0;
+  background-color: $color-background;
+}
+
+
+/*
+* TomatoTimer
+*/
+$timeBoxShadowHeigh: 20px;
+.TomatoTimer {
+  display: inline-block;
+  border-radius: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 10%;
+  .periods {
+    display: inline-block;
+  }
+  .time {
+    padding-bottom: $timeBoxShadowHeigh;
+    & > div {
+      display: inline-block;
+      padding: 10px;
+      font-size: 3.5em;
+      background-color: #fff;
+      border: 3px solid $color-text;
+      border-radius: 6px;
+      box-shadow: 0 $timeBoxShadowHeigh $color-text;
+    }
+  }
+}
+
+/*
+* Button
+*/
+$width: 5em;
+$heightSide: ($width / 4);
+$extraMarginSelected: 0.3em;
+$extraMarginActive: 0.1em;
+$containerMargin: 1.5em;
+
+
+.Button {
+  font-weight: 200;
+  margin: $containerMargin;
+  display: inline-block;
+  float: left;
+  .top {
+    width: $width;
+    height: 3em;
+    padding-top: 2em;
+    cursor: pointer;
+    background-color: #e8e8e8;
+    border-radius: 100%;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 $heightSide $color-text;
+    z-index: 2;
+    border-width: 0;
+    transform: rotateX(25deg);
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #d4d4d4;
+    }
+  }
+  .side {
+    width: inherit;
+    background-color: $color-text;
+    position: relative;
+    top: -($width / 2);
+    height: $heightSide;
+    z-index: -1;
+  }
+  &:active {
+    margin-top: $containerMargin + $extraMarginActive;
+    margin-bottom: $containerMargin - $extraMarginActive;
+    .top {
+      box-shadow: 0 ($heightSide - $extraMarginActive) $color-text;
+    }
+    .side {
+      height: $heightSide - $extraMarginActive;
+    }
+  }
+  &.selected {
+    margin-top: $containerMargin + $extraMarginSelected;
+    margin-bottom: $containerMargin - $extraMarginSelected;
+    .top {
+      background-color: #bbbbbb;
+      box-shadow: 0 ($heightSide - $extraMarginSelected) $color-text;
+    }
+    .side {
+      height: $heightSide - $extraMarginSelected;
+    }
+  }
+}
