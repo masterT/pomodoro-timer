@@ -13,9 +13,9 @@ window.addEventListener('load', () => {
         'LONG': 'Take a long break'
       }}
       audio={{
-        'WORK': {source: '/sounds/break.mp3', type: 'audio/mpeg'},
-        'SHORT': {source: '/sounds/work.mp3', type: 'audio/mpeg'},
-        'LONG': {source: '/sounds/work.mp3', type: 'audio/mpeg'}
+        'WORK': {source: 'sounds/break.mp3', type: 'audio/mpeg'},
+        'SHORT': {source: 'sounds/work.mp3', type: 'audio/mpeg'},
+        'LONG': {source: 'sounds/work.mp3', type: 'audio/mpeg'}
       }}
     />,
     document.getElementById('container')
