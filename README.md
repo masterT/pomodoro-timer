@@ -1,4 +1,4 @@
-# tomato-timer
+# pomodoro-timer
 
 A timer for the 🍅 [Pomodoro Technique](http://pomodorotechnique.com/).
 
@@ -9,7 +9,7 @@ A timer for the 🍅 [Pomodoro Technique](http://pomodorotechnique.com/).
 
 ## demo
 
-http://masterT.github.io/tomato-timer
+http://masterT.github.io/pomodoro-timer
 
 ## development
 
@@ -30,6 +30,8 @@ and in an other session, start the development server:
 ```bash
 npm start
 ```
+
+Open your browser at [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
 
 ## contributing

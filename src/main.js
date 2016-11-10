@@ -20,9 +20,7 @@ window.addEventListener('load', () => {
   render(
     <div className="App">
       <h1>Pomodoro Timer</h1>
-      <div>
-        this is a timer for the <a href="http://pomodorotechnique.com/">Pomodoro Technique</a>.
-      </div>
+      <div>this is a timer for the <a href="http://pomodorotechnique.com/">Pomodoro Technique</a>.</div>
       <PomodoroTimer
         sentence={sentence}
         audio={audio}

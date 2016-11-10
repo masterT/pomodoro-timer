@@ -31,13 +31,16 @@ footer {
   width: 100%;
   left: 0;
   background-color: $color-background;
+  div {
+    margin: 5px;
+  }
 }
 
 /*
 * App
 */
 .App {
-  min-width: 390px;
+  min-width: 450px;
   margin-top: 5%;
 }
 
@@ -52,6 +55,7 @@ $timeBoxShadowHeigh: 20px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  margin-top: 10px;
   .periods {
     display: inline-block;
   }
