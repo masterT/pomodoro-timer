@@ -1,11 +1,12 @@
 {
   "name": "pomodoro-timer",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Pomodoro timer",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-watch": "webpack -d --watch",
+    "build": "webpack -p",
     "start": " http-server"
   },
   "engines" : {

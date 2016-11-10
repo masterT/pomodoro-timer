@@ -3,6 +3,7 @@ import Period from 'period-of-time'
 import Push from 'push.js'
 import Button from './Button'
 
+// TODO use config
 const TIME_BY_PERIOD_NAME = {
   'WORK': Period.convert(25, 'minute', 'millisecond'),
   'SHORT': Period.convert(5, 'minute', 'millisecond'),
@@ -15,8 +16,28 @@ const WORK_PERIOD_BEFORE_BREAK = 4
 const TomatoTimer = React.createClass({
 
   propTypes: {
-    audio: PropTypes.object, // TODO add shape
-    sentence: PropTypes.object // TODO add shape
+
+    audio: PropTypes.shape({
+      'WORK': PropTypes.shape({
+        'source': PropTypes.string.isRequired,
+        'type': PropTypes.string.isRequired
+      }).isRequired,
+      'SHORT': PropTypes.shape({
+        'source': PropTypes.string.isRequired,
+        'type': PropTypes.string.isRequired
+      }).isRequired,
+      'LONG': PropTypes.shape({
+        'source': PropTypes.string.isRequired,
+        'type': PropTypes.string.isRequired
+      }).isRequired,
+    }).isRequired,
+
+    sentence: PropTypes.shape({
+      'WORK': PropTypes.string.isRequired,
+      'SHORT': PropTypes.string.isRequired,
+      'LONG': PropTypes.string.isRequired,
+    }),
+
   },
 
   getInitialState() {
@@ -44,12 +65,12 @@ const TomatoTimer = React.createClass({
     this.setState({
       initialDocumentTitle: document.title,
       documentTitle: document.title
-    })
+    }, () => this.updateDocumentTitle())
   },
 
   start () {
     this.setState({
-      interval: setInterval(this.tick, 1),
+      interval: setInterval(this.tick, 100),
       lastTickAt: Date.now(),
       isTicking: true
     })
@@ -76,7 +97,7 @@ const TomatoTimer = React.createClass({
 
   updateDocumentTitle() {
     let { initialDocumentTitle, documentTitle, period, remainingTime } = this.state
-    let newDocumentTitle = `(${Period.format(remainingTime, '${mm}:${ss}')}) ${period.toLowerCase()} ${initialDocumentTitle}`
+    let newDocumentTitle = `(${Period.format(remainingTime, '${mm}:${ss}')}) ${initialDocumentTitle}`
     if (newDocumentTitle != documentTitle) {
       document.title = newDocumentTitle
       this.setState({
@@ -180,7 +201,7 @@ const TomatoTimer = React.createClass({
           })}
         </div>
         <div className="time">
-          <div>{Period.format(remainingTime, '${mm}:${ss}:${lll}')}</div>
+          <div>{Period.format(remainingTime, '${mm}:${ss}')}</div>
         </div>
         <div style={{display: 'inline-block'}}>
           <Button

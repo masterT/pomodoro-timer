@@ -33,6 +33,14 @@ footer {
   background-color: $color-background;
 }
 
+/*
+* App
+*/
+.App {
+  min-width: 390px;
+  margin-top: 5%;
+}
+
 
 /*
 * TomatoTimer
@@ -44,7 +52,6 @@ $timeBoxShadowHeigh: 20px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  margin-top: 10%;
   .periods {
     display: inline-block;
   }
