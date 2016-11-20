@@ -25,6 +25,10 @@ window.addEventListener('load', () => {
         sentence={sentence}
         audio={audio}
         />
+      <footer>
+        <div>Made with &lt;3 by <a href="http://simonthiboutot.com">Simon Thiboutôt</a></div>
+        <div><a href="https://github.com/masterT/pomodoro-timer">Code source</a></div>
+      </footer>
     </div>,
     document.getElementById('container')
   )
