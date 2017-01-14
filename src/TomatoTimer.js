@@ -62,6 +62,10 @@ const TomatoTimer = React.createClass({
   },
 
   componentDidMount() {
+    // require notification permission
+    if (!Push.Permission.has()) {
+      Push.Permission.request();
+    }
     this.setState({
       initialDocumentTitle: document.title,
       documentTitle: document.title

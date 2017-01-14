@@ -20,14 +20,14 @@ window.addEventListener('load', () => {
   render(
     <div className="App">
       <h1>Pomodoro Timer</h1>
-      <div>this is a timer for the <a href="http://pomodorotechnique.com/">Pomodoro Technique</a>.</div>
+      <div>This is a <a href="http://pomodorotechnique.com/">Pomodoro</a> <i>like</i> timer.</div>
       <PomodoroTimer
         sentence={sentence}
         audio={audio}
         />
       <footer>
-        <div>Made with &lt;3 by <a href="http://simonthiboutot.com">Simon Thiboutôt</a></div>
-        <div><a href="https://github.com/masterT/pomodoro-timer">Code source</a></div>
+        <div>Made with ❤ by <a href="http://simonthiboutot.com">Simon Thiboutôt</a></div>
+        <div><a href="https://github.com/masterT/pomodoro-timer">Source code</a></div>
       </footer>
     </div>,
     document.getElementById('container')
