@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { renderToString } from 'react-dom/server'
 import { render } from 'react-dom'
+import Favico from 'favico.js'
 import PomodoroTimer from './TomatoTimer'
 require('./stylesheets/main.scss')
 
@@ -17,6 +18,10 @@ const audio = {
 }
 
 window.addEventListener('load', () => {
+  // set favicon
+  let favico = new Favico()
+  favico.image('favicon.ico')
+  // render the app
   render(
     <div className="App">
       <h1>Pomodoro Timer</h1>
