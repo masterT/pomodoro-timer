@@ -63,12 +63,21 @@ const TomatoTimer = React.createClass({
 
   componentDidMount() {
     if (!Push.Permission.has()) {
-      Push.Permission.request()
+      this.requestNotifPermission()
     }
     this.setState({
       initialDocumentTitle: document.title,
       documentTitle: document.title
     }, () => this.updateDocumentTitle())
+  },
+
+  requestNotifPermission() {
+    Push.Permission.request(this.requestNotifPermissionGranted)
+  },
+
+  requestNotifPermissionGranted () {
+    // force to render to update the Permission status
+    this.forceUpdate()
   },
 
   start () {
@@ -180,7 +189,7 @@ const TomatoTimer = React.createClass({
 
   onRequestNotifPermissionClick (e) {
     e.preventDefault()
-    Push.Permission.request()
+    this.requestNotifPermission();
   },
 
   renderNotifPermissionStatus () {
