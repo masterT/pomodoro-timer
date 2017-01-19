@@ -197,7 +197,7 @@ const TomatoTimer = React.createClass({
     if (Push.Permission.get() !== Push.Permission.GRANTED) {
       status = (
         <div className="notifPermissionStatus">
-          Warning! Push notification are disabled! <a href="#" onClick={this.onRequestNotifPermissionClick}>Activate</a>
+          Warning! Push notification is disabled! <a href="#" onClick={this.onRequestNotifPermissionClick}>Activate</a>
         </div>
       )
     }
@@ -208,7 +208,7 @@ const TomatoTimer = React.createClass({
     let { audio } = this.props
     let { remainingWorkPeriod, numberWorkPeriodDone, remainingTime } = this.state
     let action = this.getCurrentAction()
-    
+
     return (
       <div className="TomatoTimer">
         {this.renderNotifPermissionStatus()}
