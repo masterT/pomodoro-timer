@@ -42,7 +42,6 @@
     "webpack": "^1.13.2"
   },
   "dependencies": {
-    "favico.js": "^0.3.10",
     "period-of-time": "git+https://github.com/masterT/period-of-time.git",
     "push.js": "0.0.11"
   }
