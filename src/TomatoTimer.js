@@ -50,7 +50,7 @@ const TomatoTimer = React.createClass({
       lastTickAt: null,
       interval: null,
       initialDocumentTitle: '',
-      documentTitle: '',
+      documentTitle: ''
     }
   },
 
@@ -62,9 +62,8 @@ const TomatoTimer = React.createClass({
   },
 
   componentDidMount() {
-    // require notification permission
     if (!Push.Permission.has()) {
-      Push.Permission.request();
+      Push.Permission.request()
     }
     this.setState({
       initialDocumentTitle: document.title,
@@ -175,17 +174,35 @@ const TomatoTimer = React.createClass({
     }, () => this.updateDocumentTitle())
   },
 
-  getCurrentAction: function () {
+  getCurrentAction () {
     return this.state.isTicking ? 'pause' : 'start'
+  },
+
+  onRequestNotifPermissionClick (e) {
+    e.preventDefault()
+    Push.Permission.request()
+  },
+
+  renderNotifPermissionStatus () {
+    let status = null
+    if (Push.Permission.get() !== Push.Permission.GRANTED) {
+      status = (
+        <div className="notifPermissionStatus">
+          Warning! Push notification are disabled! <a href="#" onClick={this.onRequestNotifPermissionClick}>Activate</a>
+        </div>
+      )
+    }
+    return status
   },
 
   render () {
     let { audio } = this.props
     let { remainingWorkPeriod, numberWorkPeriodDone, remainingTime } = this.state
     let action = this.getCurrentAction()
-
+    console.log(this.state);
     return (
       <div className="TomatoTimer">
+        {this.renderNotifPermissionStatus()}
         <div className="periods">
           {PERIOD_NAMES.map((period) => {
             return (
