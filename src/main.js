@@ -23,8 +23,9 @@ window.addEventListener('load', () => {
   // render the app
   render(
     <div className="App">
-      <h1>Pomodoro Timer</h1>
-      <div>This is a <a href="http://pomodorotechnique.com/">Pomodoro</a> <i>like</i> timer.</div>
+      <h1>Pomodoro <i>like</i> Timer</h1>
+      <p>The <a href="http://pomodorotechnique.com/">Pomodoro Technique</a> is a time management method developed by <i>Francesco Cirillo</i> in the late 1980s.</p>
+      <p>The technique uses a timer to break down work into intervals, separated by short breaks.</p>
       <PomodoroTimer
         sentence={sentence}
         audio={audio}
