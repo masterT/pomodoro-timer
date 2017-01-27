@@ -86,6 +86,10 @@ $containerMargin: 1.5em;
 
 
 .Button {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   font-weight: 200;
   margin: $containerMargin;
   display: inline-block;
