@@ -91,10 +91,10 @@ export default {
     }
   },
   watch: {
-      durationInMilliseconds () {
-        this.stop()
-      }
+    durationInMilliseconds () {
+      this.stop()
     }
+  }
 }
 </script>
 
