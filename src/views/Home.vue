@@ -1,8 +1,10 @@
 <template>
   <div class="home">
-    <TimerButton @click="selectPeriod('work')">work</TimerButton>
-    <TimerButton @click="selectPeriod('short')">short</TimerButton>
-    <TimerButton @click="selectPeriod('long')">long</TimerButton>
+    <div>
+      <TimerButton :selected="selectedPeriodName === 'work'" @click="selectPeriod('work')">work</TimerButton>
+      <TimerButton :selected="selectedPeriodName === 'short'" @click="selectPeriod('short')">short</TimerButton>
+      <TimerButton :selected="selectedPeriodName === 'long'" @click="selectPeriod('long')">long</TimerButton>
+    </div>
     <Timer :durationInMilliseconds="durationInMillisec"/>
   </div>
 </template>

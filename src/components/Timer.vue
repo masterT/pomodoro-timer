@@ -1,24 +1,26 @@
 <template>
   <div class="timer">
     <TimerScreen :timeInMilliseconds="remainingTimeInMilliseconds"></TimerScreen>
-    <TimerButton
-      v-if="state === 'IDLE'"
-      @click="start">
-      start
-    </TimerButton>
-    <TimerButton
-      v-if="state === 'TICKING'"
-      @click="pause">
-      pause
-    </TimerButton>
-    <TimerButton
-      v-if="state === 'PAUSED'"
-      @click="start">
-      resume
-    </TimerButton>
-    <TimerButton @click="stop">
-      stop
-    </TimerButton>
+    <div>
+      <TimerButton
+        v-if="state === 'IDLE'"
+        @click="start">
+        start
+      </TimerButton>
+      <TimerButton
+        v-if="state === 'TICKING'"
+        @click="pause">
+        pause
+      </TimerButton>
+      <TimerButton
+        v-if="state === 'PAUSED'"
+        @click="start">
+        resume
+      </TimerButton>
+      <TimerButton @click="stop">
+        stop
+      </TimerButton>
+    </div>
   </div>
 </template>
 

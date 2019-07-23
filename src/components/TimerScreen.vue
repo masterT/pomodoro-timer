@@ -35,6 +35,19 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-// .time-screen {}
+<style lang="scss">
+
+$timeBoxShadowHeigh: 20px;
+$color-text: #4a4a4a;
+
+.time-screen {
+  margin-bottom: $timeBoxShadowHeigh;
+  display: inline-block;
+  padding: 10px;
+  font-size: 3.5em;
+  background-color: #fff;
+  border: 3px solid $color-text;
+  border-radius: 6px;
+  box-shadow: 0 $timeBoxShadowHeigh $color-text;
+}
 </style>
