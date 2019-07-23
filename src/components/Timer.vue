@@ -19,7 +19,6 @@
     <TimerButton @click="stop">
       stop
     </TimerButton>
-    {{ state }}
   </div>
 </template>
 
@@ -64,7 +63,6 @@ export default {
       this.state = 'PAUSED'
       clearInterval(this.intervalId)
       this.intervalId = null
-      // this.state = 'PAUSED'
     },
     stop () {
       console.log('stop')
@@ -78,6 +76,7 @@ export default {
       let now = Date.now()
       let elapsedMilliseconds = now - this.lastTickAt
       this.remainingTimeInMilliseconds = this.remainingTimeInMilliseconds - elapsedMilliseconds
+      this.lastTickAt = now
 
       if (this.remainingTimeInMilliseconds <= 0) {
         console.log('completed')
@@ -88,7 +87,12 @@ export default {
         this.$emit('completed', this.durationInMilliseconds)
       }
     }
-  }
+  },
+  watch: {
+      durationInMilliseconds () {
+        this.stop()
+      }
+    }
 }
 </script>
 
