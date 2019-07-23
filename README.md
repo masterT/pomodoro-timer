@@ -1,44 +1,29 @@
 # pomodoro-timer
 
-This is a 🍅 [Pomodoro](http://pomodorotechnique.com/) _like_ timer.
-
-> The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. The technique uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks. These intervals are named pomodoros, the plural in English of the Italian word pomodoro (tomato), after the tomato-shaped kitchen timer that Cirillo used as a university student. The method is based on the idea that frequent breaks can improve mental agility.
-
-[Wikipedia](https://en.wikipedia.org/wiki/Pomodoro_Technique)
-
-
-## demo
-
-http://masterT.github.io/pomodoro-timer
-
-## development
-
-Install dependencies:
-
-```bash
-npm install
+## Project setup
+```
+yarn install
 ```
 
-In a terminal session, build the code (auto build when files change):
-
-```bash
-npm run build-watch
+### Compiles and hot-reloads for development
+```
+yarn run serve
 ```
 
-and in an other session, start the development server:
-
-```bash
-npm start
+### Compiles and minifies for production
+```
+yarn run build
 ```
 
-Open your browser at [http://127.0.0.1:8080](http://127.0.0.1:8080).
+### Run your tests
+```
+yarn run test
+```
 
+### Lints and fixes files
+```
+yarn run lint
+```
 
-## contributing
-
-Contribution is welcome! Open an issue first.
-
-
-## liscence
-
-MIT
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
