@@ -41,6 +41,7 @@ $extraMarginActive: 0.1em;
 $containerMargin: 1.5em;
 
 .timer-button {
+  text-transform: uppercase;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
