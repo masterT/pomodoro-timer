@@ -6,7 +6,7 @@
       <TimerButton :selected="selectedPeriodName === 'short'" @click="selectPeriod('short')">short</TimerButton>
       <TimerButton :selected="selectedPeriodName === 'long'" @click="selectPeriod('long')">long</TimerButton>
     </div>
-    <Timer :durationInMilliseconds="durationInMillisec"/>
+    <Timer ref="timer" @change="updateDocumentTitle" :durationInMilliseconds="durationInMillisec"/>
     <AppFooter></AppFooter>
   </div>
 </template>
@@ -33,19 +33,26 @@ export default {
   },
   data () {
     return {
-      selectedPeriodName: 'work'
+      selectedPeriodName: 'work',
+      documentTitle: ''
     }
   },
   methods: {
     selectPeriod (periodName) {
       console.log('selectPeriod', { periodName })
       this.selectedPeriodName = periodName
+    },
+    updateDocumentTitle (remainingTime) {
+      document.title = `(${remainingTime}) Pomodoro Like Timer`
     }
   },
   computed: {
     durationInMillisec () {
       return PERIOD_DURATION_IN_MILLISECONDS[this.selectedPeriodName]
     }
+  },
+  mounted () {
+    this.updateDocumentTitle(this.$refs.timer.formatedTime)
   }
 }
 </script>

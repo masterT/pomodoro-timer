@@ -1,6 +1,8 @@
 <template>
   <div class="timer">
-    <TimerScreen :timeInMilliseconds="remainingTimeInMilliseconds"></TimerScreen>
+    <div class="timer__screen">
+      {{ formatedTime }}
+    </div>
     <div class="timer__buttons">
       <TimerButton
         v-if="state === 'IDLE'"
@@ -26,13 +28,21 @@
 
 <script>
 import TimerButton from '@/components/TimerButton.vue'
-import TimerScreen from '@/components/TimerScreen.vue'
+import parseMilliseconds from 'parse-ms'
+
+function padLeft (value, number, char) {
+  let text = String(value)
+  if (text.length < number) {
+    let size = number - text.length
+    while (size--) text = char + text
+  }
+  return text
+}
 
 export default {
   name: 'Timer',
   components: {
-    TimerButton,
-    TimerScreen
+    TimerButton
   },
   props: {
     durationInMilliseconds: {
@@ -51,6 +61,13 @@ export default {
       intervalId: null,
       remainingTimeInMilliseconds: this.durationInMilliseconds,
       lastTickAt: null
+    }
+  },
+  computed: {
+    formatedTime () {
+      const duration = parseMilliseconds(this.remainingTimeInMilliseconds)
+      const { minutes, seconds } = duration
+      return [ minutes, seconds ].map((value) => padLeft(value, 2, '0')).join(':')
     }
   },
   methods: {
@@ -89,6 +106,9 @@ export default {
   watch: {
     durationInMilliseconds () {
       this.stop()
+    },
+    formatedTime (formatedTime) {
+      this.$emit('change', formatedTime)
     }
   }
 }
@@ -96,6 +116,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+$timeBoxShadowHeigh: 20px;
+$color-text: #4a4a4a;
 
 .timer {
   display: flex;
@@ -106,6 +129,17 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &__screen {
+    margin-bottom: $timeBoxShadowHeigh;
+    display: inline-block;
+    padding: 10px;
+    font-size: 3.5em;
+    background-color: #fff;
+    border: 3px solid $color-text;
+    border-radius: 6px;
+    box-shadow: 0 $timeBoxShadowHeigh $color-text;
   }
 }
 </style>
