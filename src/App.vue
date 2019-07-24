@@ -4,7 +4,11 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <transition name="fade">
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
@@ -26,4 +30,17 @@
     }
   }
 }
+
+.fade-enter-active {
+  transition: opacity 0.2s;
+}
+
+.fade-leave-active {
+  opacity: 0;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
 </style>
