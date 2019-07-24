@@ -1,9 +1,14 @@
 <template>
-  <div class="timer">
-    <div class="timer__screen">
+  <div class="pomodoro-timer">
+    <div class="pomodoro-timer__buttons">
+      <TimerButton :selected="selectedPeriodName === 'work'" @click="selectPeriod('work')">work</TimerButton>
+      <TimerButton :selected="selectedPeriodName === 'short'" @click="selectPeriod('short')">short</TimerButton>
+      <TimerButton :selected="selectedPeriodName === 'long'" @click="selectPeriod('long')">long</TimerButton>
+    </div>
+    <div class="pomodoro-timer__screen">
       {{ formatedTime }}
     </div>
-    <div class="timer__buttons">
+    <div class="pomodoro-timer__buttons">
       <TimerButton
         v-if="state === 'IDLE'"
         @click="start">
@@ -30,6 +35,13 @@
 import TimerButton from '@/components/TimerButton.vue'
 import parseMilliseconds from 'parse-ms'
 
+const MINUTE_TO_MILLISECOND = 60000
+const PERIOD_DURATION_IN_MINUTES = {
+  work: 25,
+  short: 5,
+  long: 20
+}
+
 function padLeft (value, number, char) {
   let text = String(value)
   if (text.length < number) {
@@ -45,10 +57,6 @@ export default {
     TimerButton
   },
   props: {
-    durationInMilliseconds: {
-      type: Number,
-      required: true
-    },
     tickIntervalInMilliseconds: {
       type: Number,
       required: false,
@@ -57,9 +65,10 @@ export default {
   },
   data () {
     return {
+      selectedPeriodName: 'work',
+      remainingTimeInMilliseconds: PERIOD_DURATION_IN_MINUTES['work'] * MINUTE_TO_MILLISECOND,
       state: 'IDLE',
       intervalId: null,
-      remainingTimeInMilliseconds: this.durationInMilliseconds,
       lastTickAt: null
     }
   },
@@ -68,6 +77,9 @@ export default {
       const duration = parseMilliseconds(this.remainingTimeInMilliseconds)
       const { minutes, seconds } = duration
       return [ minutes, seconds ].map((value) => padLeft(value, 2, '0')).join(':')
+    },
+    durationInMilliseconds () {
+      return PERIOD_DURATION_IN_MINUTES[this.selectedPeriodName] * MINUTE_TO_MILLISECOND
     }
   },
   methods: {
@@ -99,8 +111,11 @@ export default {
         this.intervalId = null
         this.remainingTimeInMilliseconds = 0
 
-        this.$emit('completed', this.durationInMilliseconds)
+        this.$emit('completed', this.selectedPeriodName, this.durationInMilliseconds)
       }
+    },
+    selectPeriod (periodName) {
+      this.selectedPeriodName = periodName
     }
   },
   watch: {
@@ -120,7 +135,7 @@ export default {
 $timeBoxShadowHeigh: 20px;
 $color-text: #4a4a4a;
 
-.timer {
+.pomodoro-timer {
   display: flex;
   flex-direction: column;
   align-items: center;
