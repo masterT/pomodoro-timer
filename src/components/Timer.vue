@@ -42,7 +42,7 @@ export default {
     tickIntervalInMilliseconds: {
       type: Number,
       required: false,
-      default: 1000
+      default: 250
     }
   },
   data () {
@@ -55,33 +55,29 @@ export default {
   },
   methods: {
     start () {
-      console.log('start')
       this.state = 'TICKING'
       this.lastTickAt = Date.now()
+      this.tick()
       this.intervalId = setInterval(this.tick, this.tickIntervalInMilliseconds)
     },
     pause () {
-      console.log('pause')
       this.state = 'PAUSED'
       clearInterval(this.intervalId)
       this.intervalId = null
     },
     stop () {
-      console.log('stop')
       this.state = 'IDLE'
       clearInterval(this.intervalId)
       this.intervalId = null
       this.remainingTimeInMilliseconds = this.durationInMilliseconds
     },
     tick () {
-      console.log('tick')
       let now = Date.now()
       let elapsedMilliseconds = now - this.lastTickAt
       this.remainingTimeInMilliseconds = this.remainingTimeInMilliseconds - elapsedMilliseconds
       this.lastTickAt = now
 
       if (this.remainingTimeInMilliseconds <= 0) {
-        console.log('completed')
         clearInterval(this.intervalId)
         this.intervalId = null
         this.remainingTimeInMilliseconds = 0
