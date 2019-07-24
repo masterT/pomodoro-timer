@@ -15,7 +15,7 @@ This is a 🍅 [Pomodoro](http://pomodorotechnique.com/) _like_ timer written in
 ## Development
 
 Requirements:
-- Node.js `>=  v10.16.0`
+- Node.js `>= v10.16.0`
 - Yarn
 
 ### Project setup
