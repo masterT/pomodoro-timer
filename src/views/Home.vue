@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Pomodoro <i>like</i> timer</h1>
+    <h1>Pomodoro like timer</h1>
     <div class="home__buttons">
       <TimerButton :selected="selectedPeriodName === 'work'" @click="selectPeriod('work')">work</TimerButton>
       <TimerButton :selected="selectedPeriodName === 'short'" @click="selectPeriod('short')">short</TimerButton>
