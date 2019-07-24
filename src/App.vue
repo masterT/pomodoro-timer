@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="menu">
+      <router-link class="menu__item" to="/">Home</router-link>
+      <router-link class="menu__item" to="/about">About</router-link>
     </div>
     <transition name="fade">
       <keep-alive>
@@ -13,24 +13,47 @@
 </template>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+$color-background: tomato;
+$color-text: #4a4a4a;
+
+// Global style.
+body {
+  background-color: $color-background;
+  color: $color-text;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 100%;
+  margin: 0;
 }
-#nav {
+
+h1, h2, h3, h4, h5, h6 {
+  text-transform: uppercase;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Menu.
+.menu {
+  display: flex;
+  justify-content: center;
   padding: 30px;
-  a {
+
+  &__item {
     font-weight: bold;
-    color: #2c3e50;
+    color: $color-text;
+    text-decoration: none;
+    margin: 0 1rem;
+
     &.router-link-exact-active {
-      color: #42b983;
+      border-bottom: 2px solid $color-text;
     }
   }
 }
 
+// Transition.
 .fade-enter-active {
   transition: opacity 0.2s;
 }

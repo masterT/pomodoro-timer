@@ -50,6 +50,7 @@ $containerMargin: 1.5em;
   display: inline-block;
 
   &__top {
+    text-align: center;
     width: $width;
     height: 3em;
     padding-top: 2em;
@@ -85,10 +86,10 @@ $containerMargin: 1.5em;
     }
   }
 
-  // &:active {
-  //   margin-top: $containerMargin + $extraMarginActive;
-  //   margin-bottom: $containerMargin - $extraMarginActive;
-  // }
+  &:active {
+    margin-top: $containerMargin + $extraMarginActive;
+    margin-bottom: $containerMargin - $extraMarginActive;
+  }
 
   &_selected {
     margin-top: $containerMargin + $extraMarginSelected;

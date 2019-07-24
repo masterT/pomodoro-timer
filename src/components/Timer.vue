@@ -1,7 +1,7 @@
 <template>
   <div class="timer">
     <TimerScreen :timeInMilliseconds="remainingTimeInMilliseconds"></TimerScreen>
-    <div>
+    <div class="timer__buttons">
       <TimerButton
         v-if="state === 'IDLE'"
         @click="start">
@@ -96,5 +96,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-// .timer {}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
 </style>

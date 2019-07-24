@@ -1,16 +1,19 @@
 <template>
   <div class="home">
-    <div>
+    <h1>Pomodoro <i>like</i> timer</h1>
+    <div class="home__buttons">
       <TimerButton :selected="selectedPeriodName === 'work'" @click="selectPeriod('work')">work</TimerButton>
       <TimerButton :selected="selectedPeriodName === 'short'" @click="selectPeriod('short')">short</TimerButton>
       <TimerButton :selected="selectedPeriodName === 'long'" @click="selectPeriod('long')">long</TimerButton>
     </div>
     <Timer :durationInMilliseconds="durationInMillisec"/>
+    <AppFooter></AppFooter>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import AppFooter from '@/components/AppFooter.vue'
 import TimerButton from '@/components/TimerButton.vue'
 import Timer from '@/components/Timer.vue'
 
@@ -25,7 +28,8 @@ export default {
   name: 'home',
   components: {
     TimerButton,
-    Timer
+    Timer,
+    AppFooter
   },
   data () {
     return {
@@ -45,3 +49,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+</style>
