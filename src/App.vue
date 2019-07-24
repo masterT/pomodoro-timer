@@ -33,13 +33,14 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 0.5rem;
 }
 
 // Menu.
 .menu {
   display: flex;
   justify-content: center;
-  padding: 30px;
+  padding: 1rem;
 
   &__item {
     font-weight: bold;

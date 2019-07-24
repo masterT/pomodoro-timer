@@ -1,9 +1,9 @@
 <template>
   <div class="footer">
-    <div>
+    <div class="footer__item">
       Made with ❤ by <a href="http://simonthiboutot.com/">Simon Thiboutôt</a>
     </div>
-    <div>
+    <div class="footer__item">
       <a href="https://github.com/masterT/pomodoro-timer">Source code</a>
     </div>
   </div>
@@ -16,5 +16,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &__item {
+    padding: 0.1rem;
+  }
 }
 </style>
