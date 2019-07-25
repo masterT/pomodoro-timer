@@ -3,6 +3,9 @@
     <h1>Pomodoro like timer</h1>
     <PomodoroTimer @change="updateDocumentTitle" @completed="completed"/>
     <AppFooter></AppFooter>
+    <audio v-for="(sources, periodName) in audio" :key="periodName" :ref="`audio-${periodName}`">
+      <source v-for="source in sources" :key="source.src" :src="source.src" :type="source.type"/>
+    </audio>
   </div>
 </template>
 
@@ -20,7 +23,18 @@ export default {
   },
   data () {
     return {
-      documentTitle: ''
+      documentTitle: '',
+      audio: {
+        work: [
+          { src: 'sounds/break.mp3', type: 'audio/mpeg' }
+        ],
+        short: [
+          { src: 'sounds/work.mp3', type: 'audio/mpeg' }
+        ],
+        long: [
+          { src: 'sounds/work.mp3', type: 'audio/mpeg' }
+        ]
+      }
     }
   },
   methods: {
@@ -28,6 +42,10 @@ export default {
       document.title = `(${remainingTime}) Pomodoro Like Timer`
     },
     completed (selectedPeriodName) {
+      // Play sound.
+      // TODO: Handle error.
+      this.$refs[`audio-${selectedPeriodName}`][0].play()
+      // Display notification.
       notifications.initialize()
         .then((granted) => {
           if (!granted) return
