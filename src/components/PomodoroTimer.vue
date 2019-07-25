@@ -117,7 +117,7 @@ export default {
   },
   watch: {
     durationInMilliseconds () {
-      this.stop()
+      this.reset()
     },
     formatedTime (formatedTime) {
       this.$emit('change', formatedTime)
