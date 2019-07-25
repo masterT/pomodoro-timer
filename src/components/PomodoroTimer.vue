@@ -24,8 +24,8 @@
         @click="start">
         resume
       </TimerButton>
-      <TimerButton @click="stop">
-        stop
+      <TimerButton @click="reset">
+        reset
       </TimerButton>
     </div>
   </div>
@@ -94,7 +94,7 @@ export default {
       clearInterval(this.intervalId)
       this.intervalId = null
     },
-    stop () {
+    reset () {
       this.state = 'IDLE'
       clearInterval(this.intervalId)
       this.intervalId = null
@@ -107,11 +107,8 @@ export default {
       this.lastTickAt = now
 
       if (this.remainingTimeInMilliseconds <= 0) {
-        clearInterval(this.intervalId)
-        this.intervalId = null
-        this.remainingTimeInMilliseconds = 0
-
         this.$emit('completed', this.selectedPeriodName, this.durationInMilliseconds)
+        this.reset()
       }
     },
     selectPeriod (periodName) {
