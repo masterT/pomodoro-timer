@@ -77,18 +77,12 @@ export default {
         this.$refs[`audio-${name}`][0].play()
       }
       // Display notification.
-      notifications.initialize()
-        .then((granted) => {
-          if (!granted) return
-
-          notifications.send('Pomodoro Like Timer', {
-            body: `${name} period completed`
-          })
+      if (notifications.isGranted()) {
+        notifications.send('Pomodoro Like Timer', {
+          body: `${name} period completed`
         })
+      }
     }
-  },
-  mounted () {
-    notifications.initialize()
   }
 }
 </script>

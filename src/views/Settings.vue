@@ -51,6 +51,21 @@
               @input="updateSoundNotificationEnabled">
           </div>
 
+          <template v-if="notificationSupported()">
+            <h2>Browser notification</h2>
+            <template v-if="notificationsGranted">
+              Browser notifications enabled.
+            </template>
+            <template v-else>
+              <div class="form__description">
+                Receive notification when period is completed through your browser.
+              </div>
+              <div class="form__group">
+                <a href="#" @click.prevent="notificationAsk">Request permission</a>
+              </div>
+            </template>
+          </template>
+
           <h2>Reset settings</h2>
           <div class="form__description">
             Reset settings with default values.
@@ -66,6 +81,7 @@
 </template>
 
 <script>
+import notifications from '@/utils/notifications.js'
 import { mapGetters, mapMutations } from 'vuex'
 import AppFooter from '@/components/AppFooter.vue'
 
@@ -73,6 +89,11 @@ export default {
   name: 'settings',
   components: {
     AppFooter
+  },
+  data () {
+    return {
+      notificationsGranted: notifications.isGranted()
+    }
   },
   computed: {
     ...mapGetters([
@@ -103,7 +124,27 @@ export default {
     },
     reset () {
       this.settingsReset()
+    },
+    notificationSupported () {
+      return notifications.isSupported()
+    },
+    notificationAsk () {
+      return notifications.askPermission()
+        .then((granted) => {
+          this.notificationsGranted = granted
+          if (granted) {
+            notifications.send('Pomodoro Like Timer', {
+              body: 'Browser notification enabled!'
+            })
+          }
+        })
     }
+  },
+  mounted () {
+    notifications.initialize()
+      .then((granted) => {
+        this.notificationsGranted = granted
+      })
   }
 }
 </script>
