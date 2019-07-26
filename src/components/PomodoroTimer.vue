@@ -59,6 +59,15 @@ export default {
         return { work: 25, short: 5, long: 20 }
       }
     },
+    initialNumberWorkPeriodCompleted: {
+      type: Number,
+      required: true
+    },
+    autoStartEnabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     tickIntervalInMilliseconds: {
       type: Number,
       required: false,
@@ -70,6 +79,7 @@ export default {
     return {
       selectedPeriodName,
       remainingTimeInMilliseconds: this.timeByPeriodInMinute[selectedPeriodName] * MINUTE_TO_MILLISECOND,
+      numberWorkPeriodCompleted: this.initialNumberWorkPeriodCompleted,
       state: 'IDLE',
       intervalId: null,
       lastTickAt: null
@@ -103,6 +113,27 @@ export default {
       this.intervalId = null
       this.remainingTimeInMilliseconds = this.durationInMilliseconds
     },
+    completed () {
+      this.reset()
+      this.$emit('completed', this.selectedPeriodName, this.durationInMilliseconds)
+      // Change period.
+      switch (this.selectedPeriodName) {
+        case 'short':
+        case 'long':
+          this.selectedPeriodName = 'work'
+          break
+        case 'work':
+          if (this.numberWorkPeriodCompleted % 4 === 0) {
+            this.selectedPeriodName = 'long'
+          } else {
+            this.selectedPeriodName = 'short'
+          }
+      }
+      // Start period if enabled.
+      if (this.autoStartEnabled) {
+        setTimeout(() => this.start(), 1000)
+      }
+    },
     tick () {
       let now = Date.now()
       let elapsedMilliseconds = now - this.lastTickAt
@@ -110,8 +141,7 @@ export default {
       this.lastTickAt = now
 
       if (this.remainingTimeInMilliseconds <= 0) {
-        this.$emit('completed', this.selectedPeriodName, this.durationInMilliseconds)
-        this.reset()
+        this.completed()
       }
     },
     selectPeriod (periodName) {
@@ -119,9 +149,6 @@ export default {
     }
   },
   watch: {
-    durationInMilliseconds () {
-      this.reset()
-    },
     formatedTime (formatedTime) {
       this.$emit('change', formatedTime)
     }

@@ -4,7 +4,7 @@
       <h1>Settings</h1>
       <div>
         <form class="form" @submit.prevent="submit" @reset.prevent="reset">
-          <h2>Timer</h2>
+          <h2>Period</h2>
           <div class="form__description">
             Set the time in minutes for each period.
           </div>
@@ -14,7 +14,7 @@
             class="form__group">
             <label class="form__label" :for="period">{{ period }}</label>
             <input
-              class="form__input"
+              class="form__input form__input_text"
               type="number"
               min="1"
               :value="time"
@@ -22,6 +22,21 @@
               :name="period"
               @input="updateTimeByPeriodInMinute">
           </div>
+
+          <h2>Auto Start</h2>
+          <div class="form__description">
+            Automatically start the timer for the next period.
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="autoStartEnabled">Enabled</label>
+            <input
+              class="form__input"
+              type="checkbox"
+              :checked="settingsAutoStartEnabled"
+              id="autoStartEnabled"
+              @input="updateAutoStartEnabled">
+          </div>
+
           <div class="form__controls">
             <TimerButton @click="submit">Save</TimerButton>
             <TimerButton @click="reset">Reset</TimerButton>
@@ -53,17 +68,23 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'settingsTimeByPeriodInMinute'
+      'settingsTimeByPeriodInMinute',
+      'settingsAutoStartEnabled'
     ])
   },
   methods: {
     ...mapMutations([
       'settingsSetTimeByPeriodInMinute',
+      'settingsSetAutoStartEnabled',
       'settingsSave'
     ]),
     updateTimeByPeriodInMinute (event) {
       const { name, value } = event.target
-      this.settingsSetTimeByPeriodInMinute({ name, value })
+      this.settingsSetTimeByPeriodInMinute({ name, value: parseInt(value) })
+    },
+    updateAutoStartEnabled (event) {
+      const { checked } = event.target
+      this.settingsSetAutoStartEnabled({ value: checked })
     },
     submit () {
       this.settingsSave()
@@ -90,7 +111,6 @@ export default {
   }
 }
 
-
 $input-margin: 10px;
 
 .form {
@@ -113,17 +133,19 @@ $input-margin: 10px;
   }
 
   &__input {
-    margin: $input-margin;
-    height: 42px;
-    box-sizing: border-box;
-    font-size: 15px;
-    background-color: #e8e8e8;
-    border: 2px solid #4a4a4a;
-    border-radius: 5px;
-    -webkit-appearance: none;
-    padding: 0 0.5rem;
-    box-shadow: 0 $input-margin #4a4a4a;
-    position: relative;
+    &_text {
+      margin: $input-margin;
+      height: 42px;
+      box-sizing: border-box;
+      font-size: 15px;
+      background-color: #e8e8e8;
+      border: 2px solid #4a4a4a;
+      border-radius: 5px;
+      -webkit-appearance: none;
+      padding: 0 0.5rem;
+      box-shadow: 0 $input-margin #4a4a4a;
+      position: relative;
+    }
   }
 
   &__description {

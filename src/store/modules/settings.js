@@ -4,7 +4,8 @@ const initialState = {
       work: 25,
       short: 5,
       long: 20
-    }
+    },
+    autoStartEnabled: false
   }
 }
 
@@ -20,6 +21,9 @@ export default {
     settingsSetTimeByPeriodInMinute (state, { name, value }) {
       state.timer.timeByPeriodInMinute[name] = value
     },
+    settingsSetAutoStartEnabled (state, { value }) {
+      state.timer.autoStartEnabled = value
+    },
     settingsSave (state) {
       state = { ...state }
     }
@@ -33,6 +37,9 @@ export default {
     },
     settingsTimeByPeriodInMinute (state) {
       return state.timer.timeByPeriodInMinute
+    },
+    settingsAutoStartEnabled (state) {
+      return state.timer.autoStartEnabled
     }
   }
 }

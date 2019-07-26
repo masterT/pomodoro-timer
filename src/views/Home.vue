@@ -4,6 +4,8 @@
     <p>Number work period today: {{ numberWorkPeriodToday }}</p>
     <PomodoroTimer
       :timeByPeriodInMinute="settingsTimeByPeriodInMinute"
+      :autoStartEnabled="settingsAutoStartEnabled"
+      :initialNumberWorkPeriodCompleted="numberWorkPeriodToday"
       @change="updateDocumentTitle"
       @completed="completed"/>
     <AppFooter></AppFooter>
@@ -46,7 +48,8 @@ export default {
   computed: {
     ...mapGetters([
       'periodsByName',
-      'settingsTimeByPeriodInMinute'
+      'settingsTimeByPeriodInMinute',
+      'settingsAutoStartEnabled'
     ]),
     numberWorkPeriodToday () {
       const now = new Date()
