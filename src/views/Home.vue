@@ -49,7 +49,8 @@ export default {
     ...mapGetters([
       'periodsByName',
       'settingsTimeByPeriodInMinute',
-      'settingsAutoStartEnabled'
+      'settingsAutoStartEnabled',
+      'settingsSoundNotificationEnabled'
     ]),
     numberWorkPeriodToday () {
       const now = new Date()
@@ -71,8 +72,10 @@ export default {
         endAt: new Date()
       })
       // Play sound.
-      // TODO: Handle error.
-      this.$refs[`audio-${name}`][0].play()
+      if (this.settingsSoundNotificationEnabled) {
+        // TODO: Handle error.
+        this.$refs[`audio-${name}`][0].play()
+      }
       // Display notification.
       notifications.initialize()
         .then((granted) => {

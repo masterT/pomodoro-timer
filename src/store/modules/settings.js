@@ -5,7 +5,8 @@ const initialState = {
       short: 5,
       long: 20
     },
-    autoStartEnabled: false
+    autoStartEnabled: false,
+    soundNotificationEnabled: true
   }
 }
 
@@ -16,7 +17,9 @@ export default {
   },
   mutations: {
     settingsReset (state) {
-      state = { ...initialState }
+      Object.keys(initialState).forEach((key) => {
+        state[key] = initialState[key]
+      })
     },
     settingsSetTimeByPeriodInMinute (state, { name, value }) {
       state.timer.timeByPeriodInMinute[name] = value
@@ -24,12 +27,12 @@ export default {
     settingsSetAutoStartEnabled (state, { value }) {
       state.timer.autoStartEnabled = value
     },
+    settingsSetSoundNotificationEnabled (state, { value }) {
+      state.timer.soundNotificationEnabled = value
+    },
     settingsSave (state) {
       state = { ...state }
     }
-  },
-  actions: {
-
   },
   getters: {
     settingsTimeForPeriodInMinute: (state) => (periodName) => {
@@ -40,6 +43,9 @@ export default {
     },
     settingsAutoStartEnabled (state) {
       return state.timer.autoStartEnabled
+    },
+    settingsSoundNotificationEnabled (state) {
+      return state.timer.soundNotificationEnabled
     }
   }
 }

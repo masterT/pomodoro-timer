@@ -28,18 +28,32 @@
             Automatically start the timer for the next period.
           </div>
           <div class="form__group">
-            <label class="form__label" for="autoStartEnabled">Enabled</label>
+            <label class="form__label" for="settingsAutoStartEnabled">Enabled</label>
             <input
               class="form__input"
               type="checkbox"
               :checked="settingsAutoStartEnabled"
-              id="autoStartEnabled"
+              id="settingsAutoStartEnabled"
               @input="updateAutoStartEnabled">
+          </div>
+
+          <h2>Sound notification</h2>
+          <div class="form__description">
+            Play sound notification when period is completed.
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="settingsSoundNotificationEnabled">Enabled</label>
+            <input
+              class="form__input"
+              type="checkbox"
+              :checked="settingsSoundNotificationEnabled"
+              id="settingsSoundNotificationEnabled"
+              @input="updateSoundNotificationEnabled">
           </div>
 
           <div class="form__controls">
             <TimerButton @click="submit">Save</TimerButton>
-            <TimerButton @click="reset">Reset</TimerButton>
+            <TimerButton @click="reset">Defaults</TimerButton>
           </div>
         </form>
       </div>
@@ -59,24 +73,20 @@ export default {
     TimerButton,
     AppFooter
   },
-  data () {
-    return {
-      timeByPeriodInMinute: {
-
-      }
-    }
-  },
   computed: {
     ...mapGetters([
       'settingsTimeByPeriodInMinute',
-      'settingsAutoStartEnabled'
+      'settingsAutoStartEnabled',
+      'settingsSoundNotificationEnabled'
     ])
   },
   methods: {
     ...mapMutations([
       'settingsSetTimeByPeriodInMinute',
       'settingsSetAutoStartEnabled',
-      'settingsSave'
+      'settingsSetSoundNotificationEnabled',
+      'settingsSave',
+      'settingsReset'
     ]),
     updateTimeByPeriodInMinute (event) {
       const { name, value } = event.target
@@ -86,12 +96,15 @@ export default {
       const { checked } = event.target
       this.settingsSetAutoStartEnabled({ value: checked })
     },
+    updateSoundNotificationEnabled (event) {
+      const { checked } = event.target
+      this.settingsSetSoundNotificationEnabled({ value: checked })
+    },
     submit () {
       this.settingsSave()
     },
     reset () {
-      // TODO
-      this.foo = ''
+      this.settingsReset()
     }
   }
 }
