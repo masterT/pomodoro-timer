@@ -2,7 +2,10 @@
   <div class="home">
     <h1>Pomodoro like timer</h1>
     <p>Number work period today: {{ numberWorkPeriodToday }}</p>
-    <PomodoroTimer @change="updateDocumentTitle" @completed="completed"/>
+    <PomodoroTimer
+      :timeByPeriodInMinute="settingsTimeByPeriodInMinute"
+      @change="updateDocumentTitle"
+      @completed="completed"/>
     <AppFooter></AppFooter>
     <audio v-for="(sources, periodName) in audio" :key="periodName" :ref="`audio-${periodName}`">
       <source v-for="source in sources" :key="source.src" :src="source.src" :type="source.type"/>
@@ -41,7 +44,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['periodsByName']),
+    ...mapGetters([
+      'periodsByName',
+      'settingsTimeByPeriodInMinute'
+    ]),
     numberWorkPeriodToday () {
       const now = new Date()
       return this.periodsByName('work').filter((period) => isSameDay(period.endAt, now)).length

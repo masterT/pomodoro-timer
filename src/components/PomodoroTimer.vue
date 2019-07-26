@@ -36,11 +36,6 @@ import TimerButton from '@/components/TimerButton.vue'
 import parseMilliseconds from 'parse-ms'
 
 const MINUTE_TO_MILLISECOND = 60000
-const PERIOD_DURATION_IN_MINUTES = {
-  work: 25,
-  short: 5,
-  long: 20
-}
 
 function padLeft (value, number, char) {
   let text = String(value)
@@ -57,6 +52,13 @@ export default {
     TimerButton
   },
   props: {
+    timeByPeriodInMinute: {
+      type: Object,
+      required: false,
+      default () {
+        return { work: 25, short: 5, long: 20 }
+      }
+    },
     tickIntervalInMilliseconds: {
       type: Number,
       required: false,
@@ -64,9 +66,10 @@ export default {
     }
   },
   data () {
+    const selectedPeriodName = 'work'
     return {
-      selectedPeriodName: 'work',
-      remainingTimeInMilliseconds: PERIOD_DURATION_IN_MINUTES['work'] * MINUTE_TO_MILLISECOND,
+      selectedPeriodName,
+      remainingTimeInMilliseconds: this.timeByPeriodInMinute[selectedPeriodName] * MINUTE_TO_MILLISECOND,
       state: 'IDLE',
       intervalId: null,
       lastTickAt: null
@@ -79,7 +82,7 @@ export default {
       return [ minutes, seconds ].map((value) => padLeft(value, 2, '0')).join(':')
     },
     durationInMilliseconds () {
-      return PERIOD_DURATION_IN_MINUTES[this.selectedPeriodName] * MINUTE_TO_MILLISECOND
+      return this.timeByPeriodInMinute[this.selectedPeriodName] * MINUTE_TO_MILLISECOND
     }
   },
   methods: {

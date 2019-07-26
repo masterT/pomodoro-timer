@@ -1,11 +1,18 @@
 import VuexPersistence from 'vuex-persist'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import settings from '@/store/modules/settings'
 
 Vue.use(Vuex)
 
 const vuexLocal = new VuexPersistence({
-  storage: window.localStorage
+  storage: window.localStorage,
+  filter: (mutation) => {
+    return [
+      'add_period',
+      'settingsSave'
+    ].includes(mutation.type)
+  }
 })
 
 export default new Vuex.Store({
@@ -33,6 +40,9 @@ export default new Vuex.Store({
     periodsByName: (state) => (name) => {
       return state.periods[name]
     }
+  },
+  modules: {
+    settings
   },
   plugins: [vuexLocal.plugin]
 })
