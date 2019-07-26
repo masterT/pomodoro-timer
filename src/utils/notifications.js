@@ -17,7 +17,7 @@ export function askPermission () {
 export function send (title, options, duration) {
   if (typeof duration === 'undefined') duration = 3000
   let notification = new Notification(title, options)
-  setTimeout(notification.close, duration)
+  setTimeout(() => notification.close(), duration)
 }
 
 export function initialize () {
