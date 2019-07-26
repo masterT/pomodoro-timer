@@ -2,7 +2,12 @@
   <div class="home">
     <h1>Pomodoro like timer</h1>
     <p>Number work period today: {{ numberWorkPeriodToday }}</p>
-    <PomodoroTimer @change="updateDocumentTitle" @completed="completed"/>
+    <PomodoroTimer
+      :timeByPeriodInMinute="settingsTimeByPeriodInMinute"
+      :autoStartEnabled="settingsAutoStartEnabled"
+      :initialNumberWorkPeriodCompleted="numberWorkPeriodToday"
+      @change="updateDocumentTitle"
+      @completed="completed"/>
     <AppFooter></AppFooter>
     <audio v-for="(sources, periodName) in audio" :key="periodName" :ref="`audio-${periodName}`">
       <source v-for="source in sources" :key="source.src" :src="source.src" :type="source.type"/>
@@ -41,7 +46,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['periodsByName']),
+    ...mapGetters([
+      'periodsByName',
+      'settingsTimeByPeriodInMinute',
+      'settingsAutoStartEnabled',
+      'settingsSoundNotificationEnabled'
+    ]),
     numberWorkPeriodToday () {
       const now = new Date()
       return this.periodsByName('work').filter((period) => isSameDay(period.endAt, now)).length
@@ -62,21 +72,17 @@ export default {
         endAt: new Date()
       })
       // Play sound.
-      // TODO: Handle error.
-      this.$refs[`audio-${name}`][0].play()
+      if (this.settingsSoundNotificationEnabled) {
+        // TODO: Handle error.
+        this.$refs[`audio-${name}`][0].play()
+      }
       // Display notification.
-      notifications.initialize()
-        .then((granted) => {
-          if (!granted) return
-
-          notifications.send('Pomodoro Like Timer', {
-            body: `${name} period completed`
-          })
+      if (notifications.isGranted()) {
+        notifications.send('Pomodoro Like Timer', {
+          body: `${name} period completed`
         })
+      }
     }
-  },
-  mounted () {
-    notifications.initialize()
   }
 }
 </script>

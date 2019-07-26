@@ -1,6 +1,7 @@
 import VuexPersistence from 'vuex-persist'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import settings from '@/store/modules/settings'
 
 Vue.use(Vuex)
 
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     periodsByName: (state) => (name) => {
       return state.periods[name]
     }
+  },
+  modules: {
+    settings
   },
   plugins: [vuexLocal.plugin]
 })

@@ -3,6 +3,7 @@
     <div class="menu">
       <router-link class="menu__item" to="/">Home</router-link>
       <router-link class="menu__item" to="/about">About</router-link>
+      <router-link class="menu__item" to="/settings">Settings</router-link>
     </div>
     <transition name="fade">
       <keep-alive>

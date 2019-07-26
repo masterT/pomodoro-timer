@@ -52,6 +52,7 @@ $containerMargin: 1.5em;
 
   &__top {
     text-align: center;
+    font-weight: 600;
     width: $width;
     height: 3em;
     padding-top: 2em;

@@ -2,8 +2,12 @@ export function isSupported () {
   return ('Notification' in window)
 }
 
-export function hasPermission () {
+export function isGranted () {
   return Notification.permission === 'granted'
+}
+
+export function isDenied () {
+  return Notification.permission === 'denied'
 }
 
 export function askPermission () {
@@ -23,7 +27,7 @@ export function send (title, options, duration) {
 export function initialize () {
   return new Promise((resolve) => {
     if (!isSupported()) return resolve(false)
-    if (!hasPermission()) {
+    if (!isGranted()) {
       resolve(askPermission())
     } else {
       resolve(true)
@@ -33,7 +37,7 @@ export function initialize () {
 
 export default {
   isSupported,
-  hasPermission,
+  isGranted,
   askPermission,
   send,
   initialize
