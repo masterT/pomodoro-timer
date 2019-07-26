@@ -51,9 +51,12 @@
               @input="updateSoundNotificationEnabled">
           </div>
 
-          <div class="form__controls">
-            <TimerButton @click="submit">Save</TimerButton>
-            <TimerButton @click="reset">Defaults</TimerButton>
+          <h2>Reset settings</h2>
+          <div class="form__description">
+            Reset settings with default values.
+          </div>
+          <div class="form__group">
+            <a href="#" @click.prevent="reset">Reset settings</a>
           </div>
         </form>
       </div>
@@ -64,13 +67,11 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import TimerButton from '@/components/TimerButton.vue'
 import AppFooter from '@/components/AppFooter.vue'
 
 export default {
   name: 'settings',
   components: {
-    TimerButton,
     AppFooter
   },
   computed: {
@@ -100,9 +101,6 @@ export default {
       const { checked } = event.target
       this.settingsSetSoundNotificationEnabled({ value: checked })
     },
-    submit () {
-      this.settingsSave()
-    },
     reset () {
       this.settingsReset()
     }
@@ -128,14 +126,14 @@ $input-margin: 10px;
 
 .form {
   &__group {
-    margin: 0.5rem;
+    margin: 0.5rem 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
   &__controls {
-    margin: 1rem;
+    margin: 1rem 0;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -162,7 +160,7 @@ $input-margin: 10px;
   }
 
   &__description {
-    margin: 0.5rem;
+    margin: 0.5rem 0;
   }
 }
 </style>

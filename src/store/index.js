@@ -6,13 +6,7 @@ import settings from '@/store/modules/settings'
 Vue.use(Vuex)
 
 const vuexLocal = new VuexPersistence({
-  storage: window.localStorage,
-  filter: (mutation) => {
-    return [
-      'add_period',
-      'settingsSave'
-    ].includes(mutation.type)
-  }
+  storage: window.localStorage
 })
 
 export default new Vuex.Store({
