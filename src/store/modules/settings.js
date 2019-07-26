@@ -29,9 +29,6 @@ export default {
     },
     settingsSetSoundNotificationEnabled (state, { value }) {
       state.timer.soundNotificationEnabled = value
-    },
-    settingsSave (state) {
-      state = { ...state }
     }
   },
   getters: {
