@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>Pomodoro like timer</h1>
+    <p>Number work period today: {{ numberWorkPeriodToday }}</p>
     <PomodoroTimer @change="updateDocumentTitle" @completed="completed"/>
     <AppFooter></AppFooter>
     <audio v-for="(sources, periodName) in audio" :key="periodName" :ref="`audio-${periodName}`">
@@ -11,6 +12,8 @@
 
 <script>
 // @ is an alias to /src
+import { mapGetters, mapActions } from 'vuex'
+import { isSameDay } from 'date-fns'
 import notifications from '@/utils/notifications.js'
 import AppFooter from '@/components/AppFooter.vue'
 import PomodoroTimer from '@/components/PomodoroTimer.vue'
@@ -37,21 +40,37 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(['periodsByName']),
+    numberWorkPeriodToday () {
+      const now = new Date()
+      return this.periodsByName('work').filter((period) => isSameDay(period.endAt, now)).length
+    }
+  },
   methods: {
+    ...mapActions([
+      'add_period'
+    ]),
     updateDocumentTitle (remainingTime, _durationInMilliseconds) {
       document.title = `(${remainingTime}) Pomodoro Like Timer`
     },
-    completed (selectedPeriodName) {
+    completed (name, duration) {
+      // Add period.
+      this.add_period({
+        name: name,
+        duration,
+        endAt: new Date()
+      })
       // Play sound.
       // TODO: Handle error.
-      this.$refs[`audio-${selectedPeriodName}`][0].play()
+      this.$refs[`audio-${name}`][0].play()
       // Display notification.
       notifications.initialize()
         .then((granted) => {
           if (!granted) return
 
           notifications.send('Pomodoro Like Timer', {
-            body: `${selectedPeriodName} period completed`
+            body: `${name} period completed`
           })
         })
     }
