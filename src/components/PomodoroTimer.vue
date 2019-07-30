@@ -1,12 +1,17 @@
 <template>
   <div class="pomodoro-timer">
     <div class="pomodoro-timer__buttons">
-      <TimerButton :selected="selectedPeriodName === 'work'" @click="selectPeriod('work')">work</TimerButton>
-      <TimerButton :selected="selectedPeriodName === 'short'" @click="selectPeriod('short')">short</TimerButton>
-      <TimerButton :selected="selectedPeriodName === 'long'" @click="selectPeriod('long')">long</TimerButton>
+      <template v-for="name in periodNames">
+        <TimerButton
+          :key="name"
+          :selected="selectedPeriodName === name"
+          @click="selectPeriod(name)">
+          {{ name }}
+        </TimerButton>
+      </template>
     </div>
     <div class="pomodoro-timer__screen">
-      {{ formatedTime }}
+      {{ formatedTime(remainingTimeInMilliseconds) }}
     </div>
     <div class="pomodoro-timer__buttons">
       <TimerButton
@@ -80,18 +85,14 @@ export default {
       selectedPeriodName,
       remainingTimeInMilliseconds: this.timeByPeriodInMinute[selectedPeriodName] * MINUTE_TO_MILLISECOND,
       numberWorkPeriodCompleted: this.initialNumberWorkPeriodCompleted,
+      periodNames: ['work', 'short', 'long'],
       state: 'IDLE',
       intervalId: null,
       lastTickAt: null
     }
   },
   computed: {
-    formatedTime () {
-      const duration = parseMilliseconds(this.remainingTimeInMilliseconds)
-      const { minutes, seconds } = duration
-      return [ minutes, seconds ].map((value) => padLeft(value, 2, '0')).join(':')
-    },
-    durationInMilliseconds () {
+    selectedPeriodDurationInMilliseconds () {
       return this.timeByPeriodInMinute[this.selectedPeriodName] * MINUTE_TO_MILLISECOND
     }
   },
@@ -111,11 +112,11 @@ export default {
       this.state = 'IDLE'
       clearInterval(this.intervalId)
       this.intervalId = null
-      this.remainingTimeInMilliseconds = this.durationInMilliseconds
+      this.remainingTimeInMilliseconds = this.selectedPeriodDurationInMilliseconds
     },
     completed () {
       this.reset()
-      this.$emit('completed', this.selectedPeriodName, this.durationInMilliseconds)
+      this.$emit('completed', this.selectedPeriodName, this.selectedPeriodDurationInMilliseconds)
       // Change period.
       switch (this.selectedPeriodName) {
         case 'short':
@@ -123,6 +124,7 @@ export default {
           this.selectedPeriodName = 'work'
           break
         case 'work':
+          this.numberWorkPeriodCompleted += 1
           if (this.numberWorkPeriodCompleted % 4 === 0) {
             this.selectedPeriodName = 'long'
           } else {
@@ -140,17 +142,20 @@ export default {
       this.remainingTimeInMilliseconds = this.remainingTimeInMilliseconds - elapsedMilliseconds
       this.lastTickAt = now
 
-      if (this.remainingTimeInMilliseconds <= 0) {
+      if (this.remainingTimeInMilliseconds > 0) {
+        this.$emit('change', this.formatedTime(this.remainingTimeInMilliseconds))
+      } else {
         this.completed()
       }
     },
     selectPeriod (periodName) {
       this.selectedPeriodName = periodName
-    }
-  },
-  watch: {
-    formatedTime (formatedTime) {
-      this.$emit('change', formatedTime)
+      this.remainingTimeInMilliseconds = this.selectedPeriodDurationInMilliseconds
+    },
+    formatedTime (timeInMilliseconds) {
+      const duration = parseMilliseconds(timeInMilliseconds)
+      const { minutes, seconds } = duration
+      return [ minutes, seconds ].map((value) => padLeft(value, 2, '0')).join(':')
     }
   }
 }
