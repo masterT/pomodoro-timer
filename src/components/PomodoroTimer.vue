@@ -149,6 +149,7 @@ export default {
       }
     },
     selectPeriod (periodName) {
+      this.reset()
       this.selectedPeriodName = periodName
       this.remainingTimeInMilliseconds = this.selectedPeriodDurationInMilliseconds
     },
