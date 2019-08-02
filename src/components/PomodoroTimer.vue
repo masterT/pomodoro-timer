@@ -152,12 +152,16 @@ export default {
       this.reset()
       this.selectedPeriodName = periodName
       this.remainingTimeInMilliseconds = this.selectedPeriodDurationInMilliseconds
+      this.$emit('change', this.formatedTime(this.remainingTimeInMilliseconds))
     },
     formatedTime (timeInMilliseconds) {
       const duration = parseMilliseconds(timeInMilliseconds)
       const { minutes, seconds } = duration
       return [ minutes, seconds ].map((value) => padLeft(value, 2, '0')).join(':')
     }
+  },
+  mounted () {
+    this.$emit('change', this.formatedTime(this.remainingTimeInMilliseconds))
   }
 }
 </script>
