@@ -115,8 +115,10 @@ export default {
       this.remainingTimeInMilliseconds = this.selectedPeriodDurationInMilliseconds
     },
     completed () {
-      this.reset()
       this.$emit('completed', this.selectedPeriodName, this.selectedPeriodDurationInMilliseconds)
+      this.state = 'IDLE'
+      clearInterval(this.intervalId)
+      this.intervalId = null
       // Change period.
       switch (this.selectedPeriodName) {
         case 'short':
@@ -131,6 +133,8 @@ export default {
             this.selectedPeriodName = 'short'
           }
       }
+      this.remainingTimeInMilliseconds = this.selectedPeriodDurationInMilliseconds
+      this.$emit('change', this.formatedTime(this.remainingTimeInMilliseconds))
       // Start period if enabled.
       if (this.autoStartEnabled) {
         setTimeout(() => this.start(), 1000)
