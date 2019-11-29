@@ -19,11 +19,13 @@ import { mapActions } from 'vuex'
 export default {
   methods: {
     ...mapActions([
-      'settingsFetch'
+      'settingsFetch',
+      'periodsFetch'
     ])
   },
   mounted () {
     this.settingsFetch()
+    this.periodsFetch()
   }
 }
 </script>

@@ -35,8 +35,8 @@ export default {
     }
   },
   actions: {
-    settingsFetch ({ state, commit }) {
-      commit('settingsSetFetchStatus', 'processing')
+    settingsFetch ({ commit }) {
+      commit('settingsSetFetchStatus', 'fetching')
       return persistance.getSettings()
         .then((settings) => {
           if (settings) return settings

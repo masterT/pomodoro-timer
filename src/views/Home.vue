@@ -1,14 +1,17 @@
 <template>
   <div class="home">
-    <h1>Pomodoro like timer</h1>
-    <p>Number work period today: {{ numberWorkPeriodToday }}</p>
-    <template v-if="settingsHasFetchStatus('idle', 'fetching')">
+    <template v-if="settingsHasFetchStatus('idle', 'fetching') || periodsHasFetchStatus('idle', 'fetching')">
       Loading...
     </template>
     <template v-if="settingsHasFetchStatus('failed')">
       An error occured while retrieving your settings.
     </template>
-    <template v-if="settingsHasFetchStatus('succeeded')">
+    <template v-if="periodsHasFetchStatus('failed')">
+      An error occured while retrieving your periods.
+    </template>
+    <template v-if="settingsHasFetchStatus('succeeded') && periodsHasFetchStatus('succeeded')">
+      <h1>Pomodoro like timer</h1>
+      <p>Number work period today: {{ numberWorkPeriodToday }}</p>
       <PomodoroTimer
         :timeByPeriodInMinute="settingsTimeByPeriodInMinute"
         :autoStartEnabled="settingsAutoStartEnabled"
@@ -56,6 +59,7 @@ export default {
   computed: {
     ...mapGetters([
       'periodsByName',
+      'periodsHasFetchStatus',
       'settingsTimeByPeriodInMinute',
       'settingsAutoStartEnabled',
       'settingsSoundNotificationEnabled',
@@ -68,14 +72,14 @@ export default {
   },
   methods: {
     ...mapActions([
-      'add_period'
+      'periodsAddPeriod'
     ]),
     updateDocumentTitle (remainingTime, _durationInMilliseconds) {
       document.title = `(${remainingTime}) Pomodoro Like Timer`
     },
     completed (name, duration) {
       // Add period.
-      this.add_period({
+      this.periodsAddPeriod({
         name: name,
         duration,
         endAt: new Date()
