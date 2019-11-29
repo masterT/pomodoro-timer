@@ -56,7 +56,7 @@ export default {
         })
     },
     settingsSaveDefaultSettings ({ dispatch }) {
-      return dispatch('settingsSave', defaultSettings)
+      return dispatch('settingsSave', { ...defaultSettings })
     },
     settingsSave ({ state, commit }, settings) {
       commit('settingsSetSaveStatus', 'saving')
