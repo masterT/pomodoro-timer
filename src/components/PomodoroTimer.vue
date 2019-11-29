@@ -113,6 +113,7 @@ export default {
       clearInterval(this.intervalId)
       this.intervalId = null
       this.remainingTimeInMilliseconds = this.selectedPeriodDurationInMilliseconds
+      this.$emit('change', this.formatedTime(this.remainingTimeInMilliseconds))
     },
     completed () {
       this.$emit('completed', this.selectedPeriodName, this.selectedPeriodDurationInMilliseconds)
