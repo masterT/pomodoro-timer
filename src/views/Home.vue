@@ -2,12 +2,20 @@
   <div class="home">
     <h1>Pomodoro like timer</h1>
     <p>Number work period today: {{ numberWorkPeriodToday }}</p>
-    <PomodoroTimer
-      :timeByPeriodInMinute="settingsTimeByPeriodInMinute"
-      :autoStartEnabled="settingsAutoStartEnabled"
-      :initialNumberWorkPeriodCompleted="numberWorkPeriodToday"
-      @change="updateDocumentTitle"
-      @completed="completed"/>
+    <template v-if="settingsHasFetchStatus('idle', 'fetching')">
+      Loading...
+    </template>
+    <template v-if="settingsHasFetchStatus('failed')">
+      An error occured while retrieving your settings.
+    </template>
+    <template v-if="settingsHasFetchStatus('succeeded')">
+      <PomodoroTimer
+        :timeByPeriodInMinute="settingsTimeByPeriodInMinute"
+        :autoStartEnabled="settingsAutoStartEnabled"
+        :initialNumberWorkPeriodCompleted="numberWorkPeriodToday"
+        @change="updateDocumentTitle"
+        @completed="completed"/>
+    </template>
     <AppFooter></AppFooter>
     <audio v-for="(sources, periodName) in audio" :key="periodName" :ref="`audio-${periodName}`">
       <source v-for="source in sources" :key="source.src" :src="source.src" :type="source.type"/>
@@ -50,7 +58,8 @@ export default {
       'periodsByName',
       'settingsTimeByPeriodInMinute',
       'settingsAutoStartEnabled',
-      'settingsSoundNotificationEnabled'
+      'settingsSoundNotificationEnabled',
+      'settingsHasFetchStatus'
     ]),
     numberWorkPeriodToday () {
       const now = new Date()

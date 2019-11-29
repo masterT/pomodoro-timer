@@ -13,6 +13,21 @@
   </div>
 </template>
 
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+  methods: {
+    ...mapActions([
+      'settingsFetch'
+    ])
+  },
+  mounted () {
+    this.settingsFetch()
+  }
+}
+</script>
+
 <style lang="scss">
 $color-background: tomato;
 $color-text: #4a4a4a;

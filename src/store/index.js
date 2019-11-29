@@ -1,13 +1,8 @@
-import VuexPersistence from 'vuex-persist'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import settings from '@/store/modules/settings'
 
 Vue.use(Vuex)
-
-const vuexLocal = new VuexPersistence({
-  storage: window.localStorage
-})
 
 export default new Vuex.Store({
   state: {
@@ -37,6 +32,5 @@ export default new Vuex.Store({
   },
   modules: {
     settings
-  },
-  plugins: [vuexLocal.plugin]
+  }
 })
