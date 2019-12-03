@@ -38,12 +38,6 @@ yarn run serve
 yarn run build
 ```
 
-### Run your tests
-
-```shell
-yarn run test
-```
-
 ### Lints and fixes files
 
 ```shell
