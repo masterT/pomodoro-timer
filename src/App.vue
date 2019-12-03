@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <notifications position="top"/>
     <div class="menu">
       <router-link class="menu__item" to="/">Home</router-link>
       <router-link class="menu__item" to="/about">About</router-link>
