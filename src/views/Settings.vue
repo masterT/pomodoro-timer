@@ -127,8 +127,11 @@ export default {
     submit () {
       this.settingsSave(this.settings)
         .then((settings) => {
-          // TODO: Notify user.
           this.settings = settings
+          this.$notify({
+            title: 'Settings succesfully updated!',
+            type: 'success'
+          })
         })
     },
     reset () {
@@ -137,8 +140,11 @@ export default {
     useDefaultSettings () {
       this.settingsSaveDefaultSettings()
         .then((settings) => {
-          // TODO: Notify user.
           this.settings = settings
+          this.$notify({
+            title: 'Settings succesfully updated!',
+            type: 'success'
+          })
         })
     },
     notificationSupported () {
