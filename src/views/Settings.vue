@@ -138,14 +138,17 @@ export default {
       this.settings = { ...this.settingsCurrent }
     },
     useDefaultSettings () {
-      this.settingsSaveDefaultSettings()
-        .then((settings) => {
-          this.settings = settings
-          this.$notify({
-            title: 'Settings succesfully updated!',
-            type: 'success'
+      // TODO: Use a library.
+      if (window.confirm('Are you sure you want to reset your settings?')) {
+        this.settingsSaveDefaultSettings()
+          .then((settings) => {
+            this.settings = settings
+            this.$notify({
+              title: 'Settings succesfully updated!',
+              type: 'success'
+            })
           })
-        })
+      }
     },
     notificationSupported () {
       return notifications.isSupported()
