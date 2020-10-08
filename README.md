@@ -15,7 +15,7 @@ This is a 🍅 [Pomodoro](https://francescocirillo.com/pages/pomodoro-technique)
 ## Development
 
 Requirements:
-- Node.js `>= v10.16.0`
+- Node.js (`v12.19.0`)
 - Yarn
 
 ### Project setup
