@@ -48,7 +48,6 @@ yarn run lint
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-
 ## Deploy
 
 Deploy on [GitHub pages](https://cli.vuejs.org/guide/deployment.html#github-pages):

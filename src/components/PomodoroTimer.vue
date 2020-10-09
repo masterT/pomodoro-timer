@@ -142,8 +142,8 @@ export default {
       }
     },
     tick () {
-      let now = Date.now()
-      let elapsedMilliseconds = now - this.lastTickAt
+      const now = Date.now()
+      const elapsedMilliseconds = now - this.lastTickAt
       this.remainingTimeInMilliseconds = this.remainingTimeInMilliseconds - elapsedMilliseconds
       this.lastTickAt = now
 
@@ -162,7 +162,7 @@ export default {
     formatedTime (timeInMilliseconds) {
       const duration = parseMilliseconds(timeInMilliseconds)
       const { minutes, seconds } = duration
-      return [ minutes, seconds ].map((value) => padLeft(value, 2, '0')).join(':')
+      return [minutes, seconds].map((value) => padLeft(value, 2, '0')).join(':')
     }
   },
   mounted () {
