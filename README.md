@@ -44,6 +44,18 @@ yarn run build
 yarn run lint
 ```
 
+### Start Storybook
+
+```shell
+yarn run storybook
+```
+
+### Build Storybook
+
+```shell
+yarn run build-storybook
+```
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
