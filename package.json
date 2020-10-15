@@ -10,6 +10,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "bootstrap": "^4.5.3",
     "core-js": "^3.6.5",
     "date-fns": "^2.16.1",
     "localforage": "^1.9.0",
