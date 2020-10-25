@@ -16,13 +16,13 @@ const time = 25 * 1000 * 60
 export const Inactive = Template.bind({})
 Inactive.args = {
   time,
-  timeRemaining: time,
-  size: 120
+  timeElapsed: 0,
+  size: 240
 }
 
 export const Active = Template.bind({})
 Active.args = {
   time,
-  timeRemaining: time - 60234,
-  size: 120
+  timeElapsed: (time * 0.3),
+  size: 240
 }
