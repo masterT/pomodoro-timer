@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap-reboot.css'
+import '@/assets/stylesheets/base.scss'
 
 import Vue from 'vue'
 import App from '@/App.vue'

@@ -1,3 +1,4 @@
+// import { SESSIONS } from '@/constants'
 import persistance from '@/persistance'
 
 const defaultSettings = {
@@ -93,6 +94,9 @@ export default {
         short: state.settings.short,
         long: state.settings.long
       }
+    },
+    getSettingsTimeForSession: (state) => (session) => {
+      return state.settings[session]
     }
   }
 }

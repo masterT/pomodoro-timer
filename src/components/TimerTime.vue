@@ -26,23 +26,14 @@
         class="timer-time__svg__text"
         alignment-baseline="middle"
         text-anchor="middle">
-        {{ formatedText }}
+        {{ formatedTime }}
       </text>
     </svg>
   </div>
 </template>
 
 <script>
-import parseMilliseconds from 'parse-ms'
-
-function padLeft (value, number, char) {
-  let text = String(value)
-  if (text.length < number) {
-    let size = number - text.length
-    while (size--) text = char + text
-  }
-  return text
-}
+import { formatTime } from '@/utils/time'
 
 export default {
   name: 'TimerTime',
@@ -51,7 +42,7 @@ export default {
       type: Number,
       required: true
     },
-    timeRemaining: {
+    timeElapsed: {
       type: Number,
       required: true
     },
@@ -75,7 +66,7 @@ export default {
       return this.computedRadius * 2 * Math.PI
     },
     progress () {
-      return 100 * (this.time - this.timeRemaining) / this.time
+      return 100 * this.timeElapsed / this.time
     },
     strokeDashoffset () {
       return this.circumference - this.progress / 100 * this.circumference
@@ -83,10 +74,11 @@ export default {
     style () {
       return { height: `${this.size}px`, width: `${this.size}px` }
     },
-    formatedText () {
-      const duration = parseMilliseconds(this.timeRemaining)
-      const { minutes, seconds } = duration
-      return [minutes, seconds].map((value) => padLeft(value, 2, '0')).join(':')
+    timeRemaining () {
+      return this.time - this.timeElapsed
+    },
+    formatedTime () {
+      return formatTime(this.timeRemaining)
     }
   }
 }
@@ -116,7 +108,7 @@ export default {
       &__text {
         font-family: $font-family;
         fill: $font-color;
-        font-size: 1.5rem;
+        font-size: 2.25rem;
       }
     }
   }

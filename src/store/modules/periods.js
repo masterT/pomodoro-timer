@@ -1,3 +1,5 @@
+import { SESSIONS } from '@/constants'
+import { startOfDay, endOfDay, isAfter, isBefore, parseISO } from 'date-fns'
 import persistance from '@/persistance'
 
 const initialState = {
@@ -25,7 +27,7 @@ export default {
       state.periods = [...periods]
     },
     periodsAddPeriod (state, period) {
-      state.periods = [...state.periods, period]
+      state.periods.push(period)
     }
   },
   actions: {
@@ -43,7 +45,6 @@ export default {
           return periods
         })
         .catch((error) => {
-          console.error(error)
           commit('periodsSetError', error)
           commit('periodsSetFetchStatus', 'failed')
           return null
@@ -66,6 +67,14 @@ export default {
     },
     periodsByName: (state) => (name) => {
       return state.periods.filter(period => period.name === name)
+    },
+    getPomodoroWithinDay: (state) => (date) => {
+      const dateStart = startOfDay(date)
+      const dateEnd = endOfDay(date)
+      return state.periods.filter((period) => {
+        const periodEndAt = parseISO(period.endAt)
+        return period.name === SESSIONS.WORK && isBefore(periodEndAt, dateEnd) && isAfter(periodEndAt, dateStart)
+      })
     }
   }
 }
