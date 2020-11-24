@@ -106,7 +106,7 @@ export default {
           this.changeSession(SESSIONS.WORK)
           break
         case SESSIONS.WORK:
-          if (this.getPomodoroWithinDay(new Date()) % 4 === 0) {
+          if (this.getPomodoroWithinDay(new Date()).length % 4 === 0) {
             this.changeSession(SESSIONS.LONG)
           } else {
             this.changeSession(SESSIONS.SHORT)
@@ -120,12 +120,13 @@ export default {
     },
     addSession (session, duration) {
       if (session === SESSIONS.WORK) {
-        this.periodsAddPeriod({
+        return this.periodsAddPeriod({
           duration,
           name: session,
           endAt: formatISO(new Date())
         })
       }
+      return Promise.resolve()
     }
   },
   mounted () {
@@ -152,11 +153,12 @@ export default {
 
       const duration = this.getTimerTime
       const session = this.getTimerSession
-
       this.addSession(session, duration)
+        .then(() => {
+          this.setNextSession(session)
+        })
       this.playSound(session)
       this.displayBrowserNotification(session)
-      this.setNextSession(session)
     }
   }
 }
